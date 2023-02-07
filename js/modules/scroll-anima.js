@@ -1,9 +1,11 @@
+import debounce from './debounce.js'
+
 export default class ScrollAnima {
   constructor(sections) {
     this.sections = document.querySelectorAll(sections)
-    this.windowMetade = window.innerHeight * 0.6;
+    this.windowMetade = window.innerHeight * 0.6
 
-    this.checkDistance = this.checkDistance.bind(this)
+    this.checkDistance = debounce(this.checkDistance.bind(this), 100)
   }
 
   // Pega a distância de cada item em relação ao topo do site
@@ -13,8 +15,8 @@ export default class ScrollAnima {
       return {
         element: section,
         offset: Math.floor(offset - this.windowMetade),
-      };
-    });
+      }
+    })
   }
 
   // Verifica a distância em cada objeto em relação ao scroll do site
@@ -34,7 +36,7 @@ export default class ScrollAnima {
       this.checkDistance()
       window.addEventListener('scroll', this.checkDistance)
     }
-    return this;
+    return this
   }
 
   // Remove o event de scroll
